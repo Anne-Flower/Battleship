@@ -4,26 +4,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerState {
-  List<ShipInfo> ships;
-  ArrayList<int[]> missiles;
+  SeaBoard seaBoard;
 
-  public PlayerState(){
-    this.ships = new ArrayList<ShipInfo>();
+  public PlayerState() {
     Ship ship1 = new Ship(3, "ship1");
-    ShipInfo myShipInfo = new ShipInfo(ship1, new int[]{2,2}, new int[]{2,4});
-    ships.add(myShipInfo);
-    this.missiles = new ArrayList<int[]>();
-    missiles.add(new int[]{2,3});
-    missiles.add(new int[]{5,5});
+    int[] myMissile = new int[] { 2, 3 };
+    this.seaBoard = new SeaBoard();
+    seaBoard.placeMissile(myMissile);
+    seaBoard.placeShip(ship1, new int[] { 2, 3 }, new int[] { 2, 5 });
   }
 
   public ArrayList<int[]> getMissiles() {
-    return this.missiles;
+    return this.seaBoard.missiles;
   }
 
-  public  List<ShipInfo>  getShips() {
-    return this.ships;
+  public List<ShipInfo> getShips() {
+    return this.seaBoard.ships;
   }
 }
-
-

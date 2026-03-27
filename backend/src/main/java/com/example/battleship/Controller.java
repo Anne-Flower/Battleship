@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.battleship.SeaBoard.MissileResult;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class Controller {
@@ -42,5 +44,11 @@ public class Controller {
   public Ship addShip(@RequestBody Ship ship) {
     ships.add(ship);
     return ship;
+  }
+
+  @PostMapping("/placeMissile")
+  public MissileResult placeMissile(@RequestBody String coord) {
+    MissileResult myResult = gameService.getPlayerState().seaBoard.placeMissile( new int[]{2, 3});
+    return myResult;
   }
 }
