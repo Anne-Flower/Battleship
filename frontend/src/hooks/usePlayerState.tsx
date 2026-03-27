@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 
 function usePlayerState() {
-  const [missiles, setMissiles] = useState(null);
-  const [ships, setShips] = useState(null);
+  const [missiles, setMissiles] = useState();
+  const [ships, setShips] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState(false);
+
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -12,11 +13,14 @@ function usePlayerState() {
     const fetchData = async () => {
       try {
         setIsLoading(true);
-        setError(null);
+        setError(false);
 
-        const response = await fetch(`http://localhost:8080/player-state/{id}`, {
-          signal: abortController.signal,
-        });
+        const response = await fetch(
+          `http://localhost:8080/player-state/1`,
+          {
+            signal: abortController.signal,
+          },
+        );
 
         if (!response.ok) {
           throw new Error("Error");
@@ -27,7 +31,7 @@ function usePlayerState() {
         setShips(data.ships);
       } catch (err: any) {
         if (err.name === "AbortError") return;
-        setError(err.message);
+        setError(true);
       } finally {
         setIsLoading(false);
       }
@@ -40,10 +44,18 @@ function usePlayerState() {
     };
   }, []);
 
-  if (isLoading) return <div></div>;
-  if (error) return <div>Error : {error}</div>;
-
-  return <div>blo:  {missiles} {ships}</div>;
+  if (isLoading) {
+    return { status: "loading" };
+  }
+  else if (error) {
+    return { status: "error", error: "An error occured" };
+  } else {
+    return {
+      status: "success",
+      missiles: missiles,
+      ships: ships,
+    };
+  }
 }
 
 export default usePlayerState;
