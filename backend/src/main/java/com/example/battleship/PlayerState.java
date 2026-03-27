@@ -13,7 +13,8 @@ public class PlayerState {
     ShipInfo myShipInfo = new ShipInfo(ship1, new int[]{2,2}, new int[]{2,4});
     ships.add(myShipInfo);
     this.missiles = new ArrayList<int[]>();
-    missiles.add(new int[]{2,3}); 
+    missiles.add(new int[]{2,3});
+    missiles.add(new int[]{5,5});
   }
 
   public ArrayList<int[]> getMissiles() {

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
 function usePlayerState() {
-  const [missiles, setMissiles] = useState();
-  const [ships, setShips] = useState();
+  const [missiles, setMissiles] = useState([]);
+  const [ships, setShips] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(false);
 
@@ -27,6 +27,7 @@ function usePlayerState() {
         }
 
         const data = await response.json();
+        
         setMissiles(data.missiles);
         setShips(data.ships);
       } catch (err: any) {

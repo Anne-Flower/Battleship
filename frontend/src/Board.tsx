@@ -2,23 +2,6 @@ import SeaBoard from "./components/SeaBoard";
 import usePlayerState from "./hooks/usePlayerState";
 import type { Missile, ShipInfo } from "./types/SeaBoardTypes";
 
-const mockMissiles: Missile[] = [
-  [2, 3],
-  [4, 5],
-  [2, 5],
-];
-const mockShip: ShipInfo[] = [
-  {
-    ship: {
-      cells: 2,
-      name: "Truc",
-    },
-    parts: [
-      [2, 3],
-      [2, 4],
-    ],
-  },
-];
 
 const Board = () => {
   const state = usePlayerState();
@@ -37,8 +20,8 @@ const Board = () => {
           <SeaBoard name={"Enemy board"} missiles={[]} ships={[]} />
           <SeaBoard
             name={"Your board"}
-            missiles={mockMissiles}
-            ships={mockShip}
+            missiles={state.missiles!}
+            ships={state.ships!}
           />
         </div>
       </section>
