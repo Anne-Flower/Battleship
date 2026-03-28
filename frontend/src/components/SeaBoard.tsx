@@ -4,6 +4,7 @@ type SeaBoardProps = {
   name: string;
   missiles: Missile[];
   ships: ShipInfo[];
+  onPlaceMissile: (coord: string) => void;
 };
 
 function isShip(coord: Coordinates, ships: ShipInfo[]) {
@@ -62,6 +63,11 @@ function getCaseColor(
   }
 }
 
+// function placeMissile( letter: string, num: number ) {
+//   const coord = letter + num;
+//   console.log(coord);  
+// }
+
 const boatImage = `${process.env.PUBLIC_URL}/images/boat.png`;
 console.log("dsq", boatImage);
 const colors = {
@@ -71,18 +77,7 @@ const colors = {
   boats: "",
 };
 
-// function FetchData() {
-//   const [ships, setShips] = useState([]);
-//   const [missiles, setMissiles] = useState([]);
-
-//   useEffect(() => {
-//     getPlayerState().then((data) => {
-//       setShips(data.ships);
-//       setMissiles(data.missiles);
-//     });
-//   }, []);
-// }
-const SeaBoard = ({ name, missiles, ships }: SeaBoardProps) => {
+const SeaBoard = ({ name, missiles, ships, onPlaceMissile }: SeaBoardProps) => {
   const letters = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 
   return (
@@ -111,13 +106,14 @@ const SeaBoard = ({ name, missiles, ships }: SeaBoardProps) => {
                   {letter}
                 </div>
 
-                {letters.map((letter, j) => (
+                {letters.map((_, j) => (
                   <div
                     key={letter + j}
                     className={`w-12 h-12 border border-black ${getCaseColor([i, j], ships, missiles)}`}
+                    onClick={() => onPlaceMissile(letter+ (j + 1))}
                   >
                     {isShip([i, j], ships) ? (
-                      <img src={boatImage}></img>
+                      <img alt="boat" src={boatImage}></img>
                     ) : (
                       <div></div>
                     )}

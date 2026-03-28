@@ -15,20 +15,20 @@ import com.example.battleship.SeaBoard.MissileResult;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 public class Controller {
-  
+
   private List<Ship> ships = new ArrayList<Ship>();
   private final GameService gameService;
-  
+
   public Controller(GameService gameService) {
     this.gameService = gameService;
   }
-  
-  //GET
+
+  // GET
   @GetMapping("/")
   public String index() {
     return "Greetings from Spring Boot!";
   }
-  
+
   @GetMapping("/ships")
   public List<Ship> allShips() {
     return ships;
@@ -39,7 +39,7 @@ public class Controller {
     return gameService.getPlayerState();
   }
 
-//POST
+  // POST
   @PostMapping("/ship")
   public Ship addShip(@RequestBody Ship ship) {
     ships.add(ship);
@@ -48,7 +48,8 @@ public class Controller {
 
   @PostMapping("/placeMissile")
   public MissileResult placeMissile(@RequestBody String coord) {
-    MissileResult myResult = gameService.getPlayerState().seaBoard.placeMissile( new int[]{2, 3});
+    int[] coordinates = Utils.parseStringCoordinate(coord);
+    MissileResult myResult = gameService.getPlayerState().seaBoard.placeMissile(coordinates);
     return myResult;
   }
 }

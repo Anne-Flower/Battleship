@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function usePlayerState() {
+function usePlayerState(refresh: number) {
   const [missiles, setMissiles] = useState([]);
   const [ships, setShips] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -43,7 +43,7 @@ function usePlayerState() {
     return () => {
       abortController.abort();
     };
-  }, []);
+  }, [refresh]);
 
   if (isLoading) {
     return { status: "loading" };

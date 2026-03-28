@@ -84,6 +84,7 @@ public class Utils {
     }
 
     public static int[] parseStringCoordinate(String stringCoordinate) {
+        System.out.println(stringCoordinate);
         HashMap<String, Integer> letterMapping = new HashMap<>();
         letterMapping.put("A", 0);
         letterMapping.put("B", 1);
@@ -147,7 +148,6 @@ public class Utils {
         }
         throw new RuntimeException("invalid coordinates");
     }
-
 
 }
 
