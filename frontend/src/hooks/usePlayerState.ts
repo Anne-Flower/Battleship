@@ -45,14 +45,11 @@ function usePlayerState(refresh: number) {
     };
   }, [refresh]);
 
-  if (isLoading) {
-    return { status: "loading" };
-  }
-  else if (error) {
+  if (error) {
     return { status: "error", error: "An error occured" };
   } else {
     return {
-      status: "success",
+      status: isLoading ? "loading" : "success",
       missiles: missiles,
       ships: ships,
     };

@@ -7,14 +7,14 @@ const Board = () => {
   const { placeMissile } = usePlaceMissile();
   const [refresh, setRefresh] = useState(0);
   const state = usePlayerState(refresh);
+
   const handlePlaceMissile = async (coord: string) => {
     await placeMissile(coord);
     setRefresh((r) => r + 1);
   };
+
   if (state.status === "error") {
-    return <div>There is an error 😬</div>;
-  } else if (state.status === "loading") {
-    return <div>loading...</div>;
+    return <div>There is an error</div>;
   } else {
     return (
       <section className="bg-gradient-to-r from-sky-100 to-indigo-200 h-screen">

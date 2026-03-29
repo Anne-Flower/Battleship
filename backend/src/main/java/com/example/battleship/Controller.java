@@ -52,4 +52,12 @@ public class Controller {
     MissileResult myResult = gameService.getPlayerState().seaBoard.placeMissile(coordinates);
     return myResult;
   }
+
+  @PostMapping("/placeShip")
+  public String placeShip(@RequestBody ShipPlaceBody body) {
+    int[] startCoord = Utils.parseStringCoordinate(body.getStart());
+    int[] endCoord = Utils.parseStringCoordinate(body.getEnd());
+    gameService.getPlayerState().placeShip(startCoord, endCoord);
+    return "ok";
+  }
 }
